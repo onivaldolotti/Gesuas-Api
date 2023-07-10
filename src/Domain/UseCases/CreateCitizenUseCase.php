@@ -4,6 +4,8 @@ namespace App\Domain\UseCases;
 
 use App\Domain\Repositories\Interfaces\CitizenRepositoryInterface;
 use App\Domain\UseCases\Interfaces\CreateCitizenUseCaseInterface;
+use App\Domain\Models\IlluminateCitizen;
+use App\Domain\Entities\Citizen;
 
 class CreateCitizenUseCase implements CreateCitizenUseCaseInterface
 {
@@ -14,13 +16,11 @@ class CreateCitizenUseCase implements CreateCitizenUseCaseInterface
         $this->citizenRepository = $citizenRepository;
     }
 
-    public function execute(string $name)
+    public function execute(string $name): ?Citizen
     {
         $nis = $this->generateUniqueNis();
        
-        $citizen = $this->citizenRepository->createCitizen($name, $nis);
-
-        return $citizen;
+        return $this->citizenRepository->createCitizen($name, $nis);
     }
 
     private function generateUniqueNis(): int

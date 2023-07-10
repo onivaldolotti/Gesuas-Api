@@ -4,6 +4,7 @@ namespace App\Domain\UseCases;
 
 use App\Domain\Repositories\Interfaces\CitizenRepositoryInterface;
 use App\Domain\UseCases\Interfaces\FindCitizenUseCaseInterface;
+use App\Domain\Entities\Citizen;
 
 class FindCitizenUseCase implements FindCitizenUseCaseInterface
 {
@@ -14,17 +15,14 @@ class FindCitizenUseCase implements FindCitizenUseCaseInterface
         $this->repository = $repository;
     }  
 
-    public function execute(int $nis)
+    public function execute(int $nis): ?Citizen
     {
         $citizen = $this->repository->findByNIS($nis);
 
-        if ($citizen) {
-            return [
-                'name' => $citizen->name,
-                'nis' => $citizen->nis,
-            ];
+        if($citizen) {
+            return $citizen;
         }
 
-        return ['message' => 'Cidadão não encontrado'];
+        return null;
     }
 }

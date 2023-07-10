@@ -12,7 +12,7 @@ use App\Domain\UseCases\Interfaces\CreateCitizenUseCaseInterface;
 use App\Domain\UseCases\CreateCitizenUseCase;
 
 use App\Domain\Repositories\Interfaces\CitizenRepositoryInterface;
-use App\Domain\Repositories\CitizenRepository;
+use App\Domain\Repositories\IlluminateCitizenRepository;
 
 use App\Infrastructure\Persistence\SQLiteConnection;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -24,7 +24,7 @@ SQLiteConnection::connect();
 $container = new DI\Container();
 
 $container->set(CitizenRepositoryInterface::class, function () {
-    return new CitizenRepository();
+    return new IlluminateCitizenRepository();
 });
 
 $container->set(FindCitizenUseCaseInterface::class, function ($container) {
@@ -51,13 +51,13 @@ $app = AppFactory::createFromContainer($container);
 
 $app->post('/citizens', CreateCitizenController::class . ':handle');
 $app->get('/citizens/{nis}', FindCitizenController::class . ':handle');
-// $app->get('/', function (Request $request, Response $response) {
-//     $currentTime = date('d-m-Y H:i:s');
-//     $responseData = ['current_time' => $currentTime, 'teste' => 'Backend Gesuas'];
+$app->get('/', function (Request $request, Response $response) {
+    $currentTime = date('d-m-Y H:i:s');
+    $responseData = ['current_time' => $currentTime, 'teste' => 'Backend Gesuas'];
 
-//     $response->getBody()->write(json_encode($responseData));
-//     return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
-// });
+    $response->getBody()->write(json_encode($responseData));
+    return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+});
 
 $customErrorHandler = function (
     Request $request,

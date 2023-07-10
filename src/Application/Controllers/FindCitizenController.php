@@ -20,11 +20,17 @@ class FindCitizenController
     public function handle(Request $request, Response $response, $args): Response
     {
         $nis = new NIS($args['nis']);
-       
-        $result = $this->findCitizenUseCase->execute($nis->getValue());
 
-        $response->getBody()->write(json_encode($result));
+        $citizen = $this->findCitizenUseCase->execute($nis->getValue());
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+        $response = $response->withHeader('Content-Type', 'application/json');
+
+        if ($citizen) {
+            $response->getBody()->write(json_encode($citizen->toArray()));
+            return $response->withStatus(200);
+        }
+
+        $response->getBody()->write(json_encode(['message' => 'Cidadão não encontrado']));
+        return $response ->withStatus(200);
     }
 }

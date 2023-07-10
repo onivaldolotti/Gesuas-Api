@@ -29,7 +29,7 @@ class CreateCitizenController
 
         $citizen = $this->createCitizenUseCase->execute($name);
 
-        $responseData = ['message' => 'Cidadão criado com sucesso', 'nis' => $citizen['nis']];
+        $responseData = ['message' => 'Cidadão criado com sucesso', 'nis' => $citizen->getNis()];
         $response = $response->withStatus(201)->withHeader('Content-Type', 'application/json');
         $response->getBody()->write(json_encode($responseData));
 
