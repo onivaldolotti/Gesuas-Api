@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Application\Controllers\FindCitizenController;
 use App\Application\Controllers\CreateCitizenController;
@@ -51,13 +51,13 @@ $app = AppFactory::createFromContainer($container);
 
 $app->post('/citizens', CreateCitizenController::class . ':handle');
 $app->get('/citizens/{nis}', FindCitizenController::class . ':handle');
-$app->get('/', function (Request $request, Response $response) {
-    $currentTime = date('d-m-Y H:i:s');
-    $responseData = ['current_time' => $currentTime, 'teste' => 'Backend Gesuas'];
+// $app->get('/', function (Request $request, Response $response) {
+//     $currentTime = date('d-m-Y H:i:s');
+//     $responseData = ['current_time' => $currentTime, 'teste' => 'Backend Gesuas'];
 
-    $response->getBody()->write(json_encode($responseData));
-    return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
-});
+//     $response->getBody()->write(json_encode($responseData));
+//     return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+// });
 
 $customErrorHandler = function (
     Request $request,
