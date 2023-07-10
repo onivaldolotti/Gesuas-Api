@@ -7,6 +7,7 @@ use Psr\Http\Message\StreamInterface;
 use App\Application\Controllers\CreateCitizenController;
 use App\Domain\UseCases\Interfaces\CreateCitizenUseCaseInterface;
 use Slim\Exception\HttpBadRequestException;
+use App\Domain\Entities\Citizen;
 
 class CreateCitizenControllerTest extends TestCase
 {
@@ -59,7 +60,7 @@ class CreateCitizenControllerTest extends TestCase
             ->expects($this->once())
             ->method('execute')
             ->with('João')
-            ->willReturn(['nis' => '12345678901']);
+            ->willReturn(new Citizen('João', 12345678901));
     
         $result = $this->createCitizenController->handle($this->request, $this->response);
     

@@ -6,6 +6,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
 use App\Application\Controllers\FindCitizenController;
 use App\Domain\UseCases\Interfaces\FindCitizenUseCaseInterface;
+use App\Domain\Entities\Citizen;
 
 class FindCitizenControllerTest extends TestCase
 {
@@ -35,7 +36,7 @@ class FindCitizenControllerTest extends TestCase
         $this->findCitizenUseCase->expects($this->once())
             ->method('execute')
             ->with('12345678901')
-            ->willReturn($expectedResult);
+            ->willReturn(new Citizen($expectedResult['name'], $expectedResult['nis']));
 
         $this->response
             ->method('getBody')
@@ -67,7 +68,7 @@ class FindCitizenControllerTest extends TestCase
         $this->findCitizenUseCase->expects($this->once())
             ->method('execute')
             ->with('12345678901')
-            ->willReturn(['message' => 'Cidadão não encontrado']);
+            ->willReturn(null);
 
         $this->response
             ->method('getBody')

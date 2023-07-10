@@ -3,7 +3,7 @@
 use App\Domain\Repositories\Interfaces\CitizenRepositoryInterface;
 use App\Domain\UseCases\CreateCitizenUseCase;
 use PHPUnit\Framework\TestCase;
-use App\Domain\Models\Citizen;
+use App\Domain\Entities\Citizen;
 
 class CreateCitizenUseCaseTest extends TestCase
 {
@@ -26,12 +26,12 @@ class CreateCitizenUseCaseTest extends TestCase
 
         $this->citizenRepository->expects($this->once())
             ->method('createCitizen')
-            ->willReturn(new Citizen(['name' => $name, 'nis' => 123456789]));
+            ->willReturn(new Citizen( $name,  123456789));
 
         $citizen = $this->createCitizenUseCase->execute($name);
 
-        $this->assertEquals($name, $citizen['name']);
-        $this->assertEquals(123456789, $citizen['nis']);
+        $this->assertEquals($name, $citizen->getName());
+        $this->assertEquals(123456789, $citizen->getNis());
     }
 
     public function testExecuteHandlesCreateCitizenFailure()

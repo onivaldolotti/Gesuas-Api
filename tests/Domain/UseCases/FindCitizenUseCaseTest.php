@@ -1,7 +1,7 @@
 <?php
 
 use App\Domain\Repositories\Interfaces\CitizenRepositoryInterface;
-use App\Domain\Models\Citizen;
+use App\Domain\Entities\Citizen;
 use App\Domain\UseCases\FindCitizenUseCase;
 use PHPUnit\Framework\TestCase;
 
@@ -19,17 +19,12 @@ class FindCitizenUseCaseTest extends TestCase
     public function testExecuteWithExistingCitizen()
     {
         
-        $expectedCitizen = new Citizen();
-        $expectedCitizen->name = 'João';
-        $expectedCitizen->nis = 123456789;
+        $expectedCitizen = new Citizen('João', 123456789);
         $this->citizenRepository->method('findByNIS')->willReturn($expectedCitizen);
         
         $result = $this->findCitizenUseCase->execute(123456789);
         
-        $this->assertEquals([
-            'name' => 'João',
-            'nis' => 123456789
-        ], $result);
+        $this->assertEquals(new Citizen('João', 123456789), $result);
     }
 
     public function testExecuteWithNonExistingCitizen()
@@ -38,17 +33,13 @@ class FindCitizenUseCaseTest extends TestCase
         
         $result = $this->findCitizenUseCase->execute(123456789);
         
-        $this->assertEquals([
-            'message' => 'Cidadão não encontrado'
-        ], $result);
+        $this->assertEquals(null, $result);
     }
 
     public function testExecuteWithInvalidNIS()
     {
         $result = $this->findCitizenUseCase->execute(-123456789);
         
-        $this->assertEquals([
-            'message' => 'Cidadão não encontrado'
-        ], $result);
+        $this->assertEquals(null, $result);
     }
 }
