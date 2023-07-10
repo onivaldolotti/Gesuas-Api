@@ -50,13 +50,6 @@ $container->set(CreateCitizenController::class, function ($container) {
 $app = AppFactory::createFromContainer($container);
 
 $app->post('/citizens', CreateCitizenController::class . ':handle');
-/**
- * @OA\Get(
- *   path="/citizens/{nis}",
- *   summary="Obter lista de usuários",
- *   @OA\Response(response="200", description="OK")
- * )
- */
 $app->get('/citizens/{nis}', FindCitizenController::class . ':handle');
 $app->get('/', function (Request $request, Response $response) {
     $currentTime = date('d-m-Y H:i:s');
@@ -65,5 +58,25 @@ $app->get('/', function (Request $request, Response $response) {
     $response->getBody()->write(json_encode($responseData));
     return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
 });
+
+$customErrorHandler = function (
+    Request $request,
+    Throwable $exception,
+    bool $displayErrorDetails,
+    bool $logErrors,
+    bool $logErrorDetails,
+) use ($app) {
+    $payload = ['error' => $exception->getMessage()];
+
+    $response = $app->getResponseFactory()->createResponse()->withStatus(400)->withHeader('Content-Type', 'application/json');
+    $response->getBody()->write(
+        json_encode($payload, JSON_UNESCAPED_UNICODE)
+    );
+
+    return $response;
+};
+
+$errorMiddleware = $app->addErrorMiddleware(true, true, true);
+$errorMiddleware->setDefaultErrorHandler($customErrorHandler);
 
 $app->run();
