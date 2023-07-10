@@ -5,8 +5,7 @@ Este é um projeto em PHP 8.1 utilizando o Composer como gerenciador de dependê
 ## Requisitos
 
 - Docker
-- Docker Compose
-- Composer  
+- Docker Compose 
 
 ## Instalação e Execução
 
@@ -14,8 +13,7 @@ Clone este repositório para o seu ambiente local.
 
 ## Executando a Aplicação
 
-1. Execute o comando `composer install` para baixar as dependencias necessarias.
-2. Execute o comando `docker compose up` para iniciar a aplicação.
+Execute o comando `docker compose up` para iniciar a aplicação.
 
 ## Banco de Dados
 
