@@ -84,7 +84,7 @@ class CreateCitizenControllerTest extends TestCase
         try {
             $this->createCitizenController->handle($this->request, $this->response);
         } catch (HttpBadRequestException $exception) {
-            $this->assertSame('Campo obrigatório "name" não fornecido', $exception->getMessage());
+            $this->assertSame('Campo obrigatório name não fornecido', $exception->getMessage());
 
             throw $exception;
         }
