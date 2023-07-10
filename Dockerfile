@@ -14,4 +14,4 @@ RUN rm -rf database.sqlite.sqlite3
 
 RUN touch database.sqlite.sqlite3
 
-CMD [ "sh", "-c", "composer install && vendor/bin/phinx migrate -c src/Infrastructure/Database/phinx.php && php -S 0.0.0.0:8000 -t src/Presentation/API" ]
+CMD [ "sh", "-c", "composer install && vendor/bin/phinx migrate -c src/Infrastructure/Database/phinx.php && php -S 0.0.0.0:8000 -t public" ]
