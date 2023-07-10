@@ -2,7 +2,7 @@
 
 Este é um projeto em PHP 8.1 utilizando o Composer como gerenciador de dependências e seguindo os princípios da arquitetura Clean Architecture.
 
-## Requisito
+## Requisitos
 
 - Docker
 - Docker Compose
