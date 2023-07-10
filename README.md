@@ -1,4 +1,4 @@
-# Teste Gesuas
+# Teste TesteBacked
 
 Este é um projeto em PHP 8.1 utilizando o Composer como gerenciador de dependências e seguindo os princípios da arquitetura Clean Architecture.
 
@@ -42,7 +42,7 @@ Foi usado o sqlite como arquivo de banco.
 Para executar os testes, utilize o comando:
 
 ```
-docker exec <id_container> vendor/bin/phpunit
+docker exec TesteBackend vendor/bin/phpunit
 ```
 
 ## Considerações Finais

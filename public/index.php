@@ -53,7 +53,7 @@ $app->post('/citizens', CreateCitizenController::class . ':handle');
 $app->get('/citizens/{nis}', FindCitizenController::class . ':handle');
 $app->get('/', function (Request $request, Response $response) {
     $currentTime = date('d-m-Y H:i:s');
-    $responseData = ['current_time' => $currentTime, 'teste' => 'Backend Gesuas'];
+    $responseData = ['current_time' => $currentTime];
 
     $response->getBody()->write(json_encode($responseData));
     return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
