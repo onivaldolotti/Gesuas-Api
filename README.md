@@ -15,6 +15,10 @@ Clone este repositório para o seu ambiente local.
 
 Execute o comando `docker compose up` para iniciar a aplicação.
 
+## Formulario para uso da Aplicação
+
+O Formulario pode ser acessado em `http://localhost:8080/index.html`.
+
 ## Banco de Dados
 
 Foi usado o sqlite como arquivo de banco.
